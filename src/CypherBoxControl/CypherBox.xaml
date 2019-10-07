@@ -1,0 +1,65 @@
+﻿<UserControl x:Class="CypherBoxControl.CypherBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CypherBoxControl"
+             xmlns:cvrts="clr-namespace:CypherBoxControl.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="30" d:DesignWidth="200"
+             Name="myUserControl"
+             BorderBrush="#FFABADB3" BorderThickness="1" Foreground="Black"
+             GotFocus="myUserControl_GotFocus"
+             GotKeyboardFocus="myUserControl_GotKeyboardFocus">
+    <UserControl.Resources>
+        <cvrts:PlainTextToCypherTextConverter x:Key="PlainTextToCypherTextConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <TextBox Foreground="Transparent" TextChanged="txtOuter_TextChanged"
+                 FontFamily="Courier New" Name="txtOuter" BorderThickness="0"
+                 IsUndoEnabled="False" InputMethod.IsInputMethodEnabled="False" VerticalContentAlignment="Center">
+           
+            <!-- 以下这段绑定xaml designer会提示出错，但是单独在.net framework中不会，直接放到后台去绑定了
+            <TextBox.CommandBindings>
+                <CommandBinding Command="ApplicationCommands.Paste" CanExecute="CommandBinding_CanExecute"/>
+                <CommandBinding Command="ApplicationCommands.Cut" CanExecute="CommandBinding_CanExecute"/>
+                <CommandBinding Command="ApplicationCommands.Copy" CanExecute="CommandBinding_CanExecute"/>
+            </TextBox.CommandBindings>
+            -->
+            <TextBox.Template>
+                <ControlTemplate TargetType="TextBox">
+                    <Grid>
+                        <ScrollViewer x:Name="PART_ContentHost"/>
+                        <TextBox Foreground="{Binding Foreground,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=UserControl}}"
+                                 FontFamily="Courier New" HorizontalScrollBarVisibility="Hidden" TextChanged="txtInner_TextChanged"
+                                 Background="Transparent" BorderThickness="0" Name="txtInner" VerticalContentAlignment="Center"
+                                 InputMethod.IsInputMethodEnabled="False">
+                            <TextBox.Text>
+                                <MultiBinding Converter="{StaticResource PlainTextToCypherTextConverter}">
+                                    <Binding RelativeSource="{RelativeSource Mode=TemplatedParent}" Path="Text"/>
+                                    <Binding RelativeSource="{RelativeSource Mode=FindAncestor,AncestorType=UserControl}" Path="ShowPlainText"/>
+                                    <Binding RelativeSource="{RelativeSource Mode=FindAncestor,AncestorType=UserControl}" Path="CypherChar"/>
+                                </MultiBinding>
+                            </TextBox.Text>
+                            <TextBox.ContextMenu>
+                                <ContextMenu Visibility="Collapsed"/>
+                            </TextBox.ContextMenu>
+                        </TextBox>
+                        <TextBlock Text="{Binding Placeholder,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=UserControl}}"
+                                   Name="tbPlaceholder" Visibility="Hidden" VerticalAlignment="Center" Margin="5,0,0,0"
+                                   Foreground="#FFABADB3" 
+                                   FontFamily="{Binding FontFamily,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=UserControl}}"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Text" Value="">
+                            <Setter TargetName="tbPlaceholder" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="Text" Value="{x:Null}">
+                            <Setter TargetName="tbPlaceholder" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </TextBox.Template>
+        </TextBox>
+    </Grid>
+</UserControl>

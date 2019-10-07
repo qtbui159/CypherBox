@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <TargetFrameworks>netcoreapp3.0;net40</TargetFrameworks>
+    <UseWPF>true</UseWPF>
+    <PackageId>CypherBox</PackageId>
+    <Authors>qtbui159</Authors>
+    <Company>qtbui159</Company>
+    <Product>CypherBox</Product>
+    <Copyright>qtbui159</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/qtbui159/CypherBox</PackageProjectUrl>
+    <PackageReleaseNotes></PackageReleaseNotes>
+    <Description>CypherBox is a databinding replacement of PasswordBox</Description>
+    <PackageTags>wpf password passwordbox dotnet dotnetcore</PackageTags>
+    <Version>1.0.0</Version>
+  </PropertyGroup>
+
+</Project>

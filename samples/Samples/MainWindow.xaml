@@ -1,0 +1,67 @@
+﻿<Window x:Class="Samples.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Samples"
+        xmlns:control="https://github.com/qtbui159/CypherBox"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"></ColumnDefinition>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" Text="DataBinding:"/>
+        <control:CypherBox Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Left" Height="20" Width="200"
+                           CypherText="{Binding Password1,Mode=TwoWay}"/>
+        <TextBlock Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" Margin="250,0,0,0" Text="{Binding Password1}"/>
+
+        <TextBlock Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Text="CypherChar:"/>
+        <control:CypherBox Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Left" Height="20" Width="200"
+                           CypherChar="*"/>
+
+        <TextBlock Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Text="ShowPlainText:"/>
+        <control:CypherBox Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Left" Height="20" Width="200"
+                           ShowPlainText="{Binding ShowText,Mode=OneWay}"/>
+        <Button Grid.Row="2" Grid.Column="2" Margin="250,0,0,0" Width="80" Height="40" HorizontalAlignment="Left"
+                Command="{Binding ShowTextCommand}">show text</Button>
+
+        <TextBlock Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center" Text="Placeholder:"/>
+        <control:CypherBox Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Left" Height="20" Width="200"
+                           Placeholder="your password"/>
+        
+        <TextBlock Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center" Text="Example:"/>
+        <Grid Grid.Row="4" Grid.Column="2" Height="30" Width="200" HorizontalAlignment="Left">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="24"></ColumnDefinition>
+                <ColumnDefinition Width="10"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Border Grid.ColumnSpan="3" BorderBrush="#FFABADB3" BorderThickness="1" CornerRadius="5"></Border>
+            <control:CypherBox VerticalAlignment="Center" HorizontalAlignment="Stretch"
+                           CypherText="{Binding Password2,Mode=TwoWay}" BorderThickness="0"
+                           Placeholder="your password" ShowPlainText="{Binding ShowPassword2,Mode=OneWay}"/>
+            
+            <Button Grid.Column="1" Command="{Binding ShowPassword2Command}">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Image Source="./Resources/eye.png"/>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </Grid>
+        <Button Grid.Row="4" Grid.Column="2" Margin="250,0,0,0" Width="80" Height="40" HorizontalAlignment="Left"
+                Command="{Binding LoginCommand}">login</Button>
+    </Grid>
+</Window>
